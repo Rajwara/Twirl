@@ -139,13 +139,13 @@ $$('form[data-demo]').forEach(f=>f.onsubmit=e=>{e.preventDefault();const b=f.que
 /* ---------- real images: drop files into assets/images/ with these exact names ---------- */
 const IMG_DIR='assets/images/';
 const IMG_MAP={
-  'IMG-01':'hero-portrait.jpg','IMG-07':'location-interior.jpg','IMG-08':'location-storefront.jpg','IMG-09':'location-booth.jpg',
-  'IMG-10':'location-crowd.jpg','IMG-18':'location-open-kitchen.jpg','IMG-19':'location-terrace.jpg','IMG-20':'delivery-bag.jpg',
-  'IMG-21':'jobs-crew-portrait.jpg','IMG-22':'blog-twirl-kids.jpg','IMG-23':'blog-chef-lasagne.jpg','IMG-24':'blog-match-night.jpg',
-  'IMG-25':'newsletter-mailbox.jpg','IMG-26':'jobs-hero-crew.jpg','IMG-27':'about-founders.jpg',
-  'VID-01':'story-gold-bowl-1.jpg','VID-02':'story-gold-bowl-2.jpg',
-  'LOC-01':'loc-lahore-gulberg.jpg','LOC-02':'loc-lahore-dha.jpg','LOC-03':'loc-karachi-clifton.jpg','LOC-04':'loc-karachi-dha.jpg',
-  'LOC-05':'loc-islamabad-f7.jpg','LOC-06':'loc-islamabad-centaurus.jpg','LOC-07':'loc-dubai-jbr.jpg','LOC-08':'loc-doha-westbay.jpg','LOC-09':'loc-london-soho.jpg'
+  'IMG-01':'hero-portrait.webp','IMG-07':'location-interior.webp','IMG-08':'location-storefront.webp','IMG-09':'location-booth.webp',
+  'IMG-10':'location-crowd.webp','IMG-18':'location-open-kitchen.webp','IMG-19':'location-terrace.webp','IMG-20':'delivery-bag.webp',
+  'IMG-21':'jobs-crew-portrait.webp','IMG-22':'blog-twirl-kids.webp','IMG-23':'blog-chef-lasagne.webp','IMG-24':'blog-match-night.webp',
+  'IMG-25':'newsletter-mailbox.webp','IMG-26':'jobs-hero-crew.webp','IMG-27':'about-founders.webp',
+  'VID-01':'story-gold-bowl-1.webp','VID-02':'story-gold-bowl-2.webp',
+  'LOC-01':'loc-lahore-gulberg.webp','LOC-02':'loc-lahore-dha.webp','LOC-03':'loc-karachi-clifton.webp','LOC-04':'loc-karachi-dha.webp',
+  'LOC-05':'loc-islamabad-f7.webp','LOC-06':'loc-islamabad-centaurus.webp','LOC-07':'loc-dubai-jbr.webp','LOC-08':'loc-doha-westbay.webp','LOC-09':'loc-london-soho.webp'
 };
 const slug=t=>t.toLowerCase().replace(/\bto go\b/,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 function tryImg(file,ok){const im=new Image();im.onload=()=>ok(IMG_DIR+file);im.src=IMG_DIR+file}
@@ -153,11 +153,11 @@ function tryImg(file,ok){const im=new Image();im.onload=()=>ok(IMG_DIR+file);im.
 $$('.ph[data-label]').forEach(el=>{const code=el.dataset.label.split(' ')[0],f=IMG_MAP[code];if(f)tryImg(f,u=>{el.style.backgroundImage=`url(${u})`;el.classList.add('has-img')})});
 /* dish plates (transparent PNG) */
 $$('[data-plate]').forEach(el=>{const n=el.querySelector('.tag')||el.closest('.mcard')?.querySelector('h3');if(!n)return;
-  tryImg(`dish-${slug(n.textContent)}.png`,u=>{el.querySelector('svg').outerHTML=`<img src="${u}" alt="${n.textContent}">`})});
+  tryImg(`dish-${slug(n.textContent)}.webp`,u=>{el.querySelector('svg').outerHTML=`<img src="${u}" alt="${n.textContent}">`})});
 /* Twirl To Go packs */
 const PACK_ORDER=['the-twirl','cheesy-does-it','garden-party'];
 $$('.roll').forEach((el,i)=>{const h=el.closest('.mcard')?.querySelector('h3');const s=h?slug(h.textContent):PACK_ORDER[[...el.parentElement.children].indexOf(el)];
-  if(s)tryImg(`pack-${s}.png`,u=>{el.classList.add('has-img');el.insertAdjacentHTML('beforeend',`<img src="${u}" alt="">`)})});
+  if(s)tryImg(`pack-${s}.webp`,u=>{el.classList.add('has-img');el.insertAdjacentHTML('beforeend',`<img src="${u}" alt="">`)})});
 /* logo, favicon, app screen, QR */
 tryImg('logo.svg',u=>$$('header.site .logo').forEach(l=>l.innerHTML=`<img src="${u}" alt="TWIRL°">`));
 tryImg('logo-white.svg',u=>$$('.flogo').forEach(l=>l.innerHTML=`<img src="${u}" alt="TWIRL°">`));
