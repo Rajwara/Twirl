@@ -39,8 +39,8 @@ twirl-site/
 | 2 | `logo-white.webp` | ~1200 wide, transparent | Footer |
 | 3 | `favicon.webp` | 512×512 | Browser tab |
 | 4 | `og-image.jpg` | 1200×630 | Link previews (WhatsApp, Facebook) |
-| 5 | `app-screen.png` | 560×1140 | Phone mockup, home "Saucy Club" section |
-| 6 | `qr-code.png` | 400×400 | Home "Saucy Club" section |
+| 5 | `app-screen.webp` | 560×1140 | Phone mockup, home "Saucy Club" section |
+| 6 | `qr-code.webp` | 400×400 | Home "Saucy Club" section |
 
 **`logo.webp`**: Minimal wordmark logo reading "TWIRL°", tall condensed bold sans-serif, all caps, brick red #C8302F, transparent background, small degree symbol top right, the W subtly shaped like a fork twirling a pasta strand, flat vector, no gradients. *(Export as WebP with a transparent background.)*
 
@@ -50,9 +50,9 @@ twirl-site/
 
 **`og-image.jpg`**: Wide banner, cream #F4F1EA background, a large plate of tomato spaghetti on the right, big empty space on the left for a logo, overhead flash, playful.
 
-**`app-screen.png`**: Mobile app UI screenshot for a pasta loyalty app, red header with a greeting, a white card showing "120 points", a grid of four food tiles with pasta photos, rounded corners, cream background, clean modern UI, portrait 9:19.5. *(Or take a screenshot of your real app later.)*
+**`app-screen.webp`**: Mobile app UI screenshot for a pasta loyalty app, red header with a greeting, a white card showing "120 points", a grid of four food tiles with pasta photos, rounded corners, cream background, clean modern UI, portrait 9:19.5. *(Or take a screenshot of your real app later.)*
 
-**`qr-code.png`**: Create this with a free QR generator (for example qr-code-generator.com) pointing to your app or website. Red code on a white background. **Do not use AI for this one.**
+**`qr-code.webp`**: Create this with a free QR generator (for example qr-code-generator.com) pointing to your app or website. Red code on a white background. **Do not use AI for this one.**
 
 ---
 
@@ -220,7 +220,7 @@ These need a video tool (Runway, Kling, Pika, Luma). Export as **MP4** (and GIF 
 
 ## Checklist: 48 image files
 
-**Brand (6):** logo.webp · logo-white.webp · favicon.webp · og-image.jpg · app-screen.png · qr-code.png
+**Brand (6):** logo.webp · logo-white.webp · favicon.webp · og-image.jpg · app-screen.webp · qr-code.webp
 
 **Home (9):** hero-portrait.jpg · story-gold-bowl-1.jpg · story-gold-bowl-2.jpg · delivery-bag.jpg · jobs-crew-portrait.jpg · blog-twirl-kids.jpg · blog-chef-lasagne.jpg · blog-match-night.jpg · newsletter-mailbox.jpg
 
