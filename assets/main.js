@@ -159,9 +159,9 @@ const PACK_ORDER=['the-twirl','cheesy-does-it','garden-party'];
 $$('.roll').forEach((el,i)=>{const h=el.closest('.mcard')?.querySelector('h3');const s=h?slug(h.textContent):PACK_ORDER[[...el.parentElement.children].indexOf(el)];
   if(s)tryImg(`pack-${s}.webp`,u=>{el.classList.add('has-img');el.insertAdjacentHTML('beforeend',`<img src="${u}" alt="">`)})});
 /* logo, favicon, app screen, QR */
-tryImg('logo.svg',u=>$$('header.site .logo').forEach(l=>l.innerHTML=`<img src="${u}" alt="TWIRL°">`));
-tryImg('logo-white.svg',u=>$$('.flogo').forEach(l=>l.innerHTML=`<img src="${u}" alt="TWIRL°">`));
-tryImg('favicon.png',u=>document.head.insertAdjacentHTML('beforeend',`<link rel="icon" href="${u}">`));
+tryImg('logo.webp',u=>$$('header.site .logo').forEach(l=>l.innerHTML=`<img src="${u}" alt="TWIRL°">`));
+tryImg('logo-white.webp',u=>$$('.flogo').forEach(l=>l.innerHTML=`<img src="${u}" alt="TWIRL°">`));
+tryImg('favicon.webp',u=>document.head.insertAdjacentHTML('beforeend',`<link rel="icon" type="image/webp" href="${u}">`));
 tryImg('app-screen.png',u=>$$('.phone .screen').forEach(s=>{s.style.backgroundImage=`url(${u})`;s.classList.add('has-img')}));
 tryImg('qr-code.png',u=>$$('.qr').forEach(q=>{q.style.backgroundImage=`url(${u})`;q.classList.add('has-img')}));
 

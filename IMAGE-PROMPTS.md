@@ -35,18 +35,18 @@ twirl-site/
 
 | # | File name | Size | Used on |
 |---|---|---|---|
-| 1 | `logo.svg` | vector | Header, all pages |
-| 2 | `logo-white.svg` | vector | Footer |
-| 3 | `favicon.png` | 512×512 | Browser tab |
+| 1 | `logo.webp` | ~1200 wide, transparent | Header, all pages |
+| 2 | `logo-white.webp` | ~1200 wide, transparent | Footer |
+| 3 | `favicon.webp` | 512×512 | Browser tab |
 | 4 | `og-image.jpg` | 1200×630 | Link previews (WhatsApp, Facebook) |
 | 5 | `app-screen.png` | 560×1140 | Phone mockup, home "Saucy Club" section |
 | 6 | `qr-code.png` | 400×400 | Home "Saucy Club" section |
 
-**`logo.svg`**: Minimal wordmark logo reading "TWIRL°", tall condensed bold sans-serif, all caps, brick red #C8302F, transparent background, small degree symbol top right, the W subtly shaped like a fork twirling a pasta strand, flat vector, no gradients. *(Most AI tools export PNG. Convert to SVG at vectorizer.ai, or use `logo.png` and tell Claude to switch the file name.)*
+**`logo.webp`**: Minimal wordmark logo reading "TWIRL°", tall condensed bold sans-serif, all caps, brick red #C8302F, transparent background, small degree symbol top right, the W subtly shaped like a fork twirling a pasta strand, flat vector, no gradients. *(Export as WebP with a transparent background.)*
 
-**`logo-white.svg`**: Same wordmark as `logo.svg`, but in pure white on a transparent background.
+**`logo-white.webp`**: Same wordmark as `logo.webp`, but in pure white on a transparent background.
 
-**`favicon.png`**: Square app icon, brick red #C8302F background, a white fork twirling a single pasta strand into a circle, flat vector, bold, readable at 32px.
+**`favicon.webp`**: Square app icon, brick red #C8302F background, a white fork twirling a single pasta strand into a circle, flat vector, bold, readable at 32px.
 
 **`og-image.jpg`**: Wide banner, cream #F4F1EA background, a large plate of tomato spaghetti on the right, big empty space on the left for a logo, overhead flash, playful.
 
@@ -220,7 +220,7 @@ These need a video tool (Runway, Kling, Pika, Luma). Export as **MP4** (and GIF 
 
 ## Checklist: 48 image files
 
-**Brand (6):** logo.svg · logo-white.svg · favicon.png · og-image.jpg · app-screen.png · qr-code.png
+**Brand (6):** logo.webp · logo-white.webp · favicon.webp · og-image.jpg · app-screen.png · qr-code.png
 
 **Home (9):** hero-portrait.jpg · story-gold-bowl-1.jpg · story-gold-bowl-2.jpg · delivery-bag.jpg · jobs-crew-portrait.jpg · blog-twirl-kids.jpg · blog-chef-lasagne.jpg · blog-match-night.jpg · newsletter-mailbox.jpg
 
