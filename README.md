@@ -24,3 +24,12 @@ redirects to `/menu`) and sets caching for `/assets`. `.vercelignore` keeps
 ```bash
 npx serve .
 ```
+
+## Languages (English / German)
+
+The site shows German to visitors whose browser is set to German and English to everyone else.
+The EN / DE buttons in the header and footer switch language, and the choice is remembered.
+
+All German text lives in `assets/i18n.js` as `"English text": "German text"` pairs.
+When you change or add English text on a page, add or update the matching line there.
+Prices like `€13.80` are converted to `13,80 €` automatically.

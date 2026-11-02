@@ -5,6 +5,12 @@
 const page = document.body.dataset.page || 'home';
 /* online ordering link (FoodAmigos) — paste the real URL here and every "Order" button uses it */
 const ORDER_URL = '#';
+
+/* ---------- language: German for German browsers, otherwise English; EN/DE buttons override ---------- */
+const LANG=(()=>{try{const s=localStorage.getItem('jp-lang');if(s==='de'||s==='en')return s}catch(e){}return /^de\b/i.test(navigator.language||'')?'de':'en'})();
+const DE=window.JP_DE||{};
+const t=s=>LANG==='de'&&DE[s]||s;
+document.documentElement.lang=LANG;
 const ARROW = '<svg width="38" height="14" viewBox="0 0 38 14" fill="none" stroke="#fff" stroke-width="1.6"><path d="M0 7h36M30 1l6 6-6 6"/></svg>';
 window.ARROW = ARROW;
 
@@ -15,8 +21,8 @@ const headerHTML = `
 <header class="site" id="hdr">
   <button class="burger" id="burger" aria-label="Open menu"><i></i><i></i><i></i></button>
   <nav>${nav.map(([h,t,k])=>t==='LOGO'?`<a href="${h}" class="logo">JADE PALAST</a>`:`<a href="${h}" class="${k===page?'active':''}">${t}</a>`).join('')}</nav>
-  <button class="lang-btn" id="langBtn">EN</button>
-  <div class="lang-menu" id="langMenu"><a href="#">EN</a><a href="#">DE</a></div>
+  <button class="lang-btn" id="langBtn">${LANG.toUpperCase()}</button>
+  <div class="lang-menu" id="langMenu"><a href="#" data-lang="en">EN</a><a href="#" data-lang="de">DE</a></div>
 </header>
 <div class="mobile-nav" id="mnav">${nav.map(([h,t])=>`<a href="${h}">${t==='LOGO'?'Home':t}</a>`).join('')}<a href="about.html">About</a><a href="jobs.html">Jobs</a><a href="faq.html">FAQ</a></div>
 <nav class="cta-bar" id="ctaBar" aria-label="Quick actions"><a href="menu.html">Our Menu</a><a href="contact.html#reserve">Book a Table</a><a href="#order" data-order>Order Food</a></nav>`;
@@ -35,7 +41,7 @@ const footerHTML = `
         <a href="#" aria-label="Facebook"><svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M14 8h3V4h-3c-2.8 0-4 1.8-4 4.3V10H7v4h3v7h4v-7h3l1-4h-4V8.6c0-.4.3-.6.6-.6z"/></svg></a>
         <a href="#" aria-label="TikTok"><svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M16 3c.4 2.4 2 4 4.5 4.3v3.2c-1.7 0-3.2-.5-4.5-1.4v6.6A5.7 5.7 0 1 1 10.3 10v3.3a2.5 2.5 0 1 0 2.4 2.5V3z"/></svg></a>
       </div>
-      <h4 style="margin-top:50px">Language</h4><div class="langs"><a href="#" class="on">EN</a><a href="#">DE</a></div>
+      <h4 style="margin-top:50px">Language</h4><div class="langs"><a href="#" data-lang="en" class="${LANG==='en'?'on':''}">EN</a><a href="#" data-lang="de" class="${LANG==='de'?'on':''}">DE</a></div>
     </div>
   </div>
   <div class="legal"><span>© 2026 Jade Palast · info@jadepalast.de · All rights reserved.</span>
@@ -44,6 +50,21 @@ const footerHTML = `
 
 document.body.insertAdjacentHTML('afterbegin', headerHTML);
 document.body.insertAdjacentHTML('beforeend', footerHTML);
+
+/* ---------- translate the page ---------- */
+const slug=t=>t.toLowerCase().replace(/\bto go\b/,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+if(LANG==='de'){
+  /* remember the English dish names so photo file names stay the same in both languages */
+  document.querySelectorAll('[data-plate]').forEach(el=>{const n=el.querySelector('.tag')||el.closest('.mcard')?.querySelector('h3');if(n)el.dataset.slug=slug(n.textContent)});
+  document.querySelectorAll('.roll').forEach(el=>{const h=el.closest('.mcard')?.querySelector('h3');if(h)el.dataset.slug=slug(h.textContent)});
+  const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;
+  while(n=w.nextNode()){const raw=n.nodeValue,key=raw.replace(/\s+/g,' ').trim();if(!key)continue;
+    const tr=DE[key]||key.replace(/€(\d+)\.(\d{2})/g,'$1,$2 €');
+    if(tr!==key)n.nodeValue=raw.match(/^\s*/)[0]+tr+raw.match(/\s*$/)[0]}
+  document.querySelectorAll('[placeholder],[data-marquee],[data-fillword],[aria-label],[title]').forEach(el=>['placeholder','data-marquee','data-fillword','aria-label','title'].forEach(a=>{const v=el.getAttribute(a);if(v&&DE[v])el.setAttribute(a,DE[v])}));
+  document.title=t(document.title);
+}
+document.querySelectorAll('[data-lang]').forEach(a=>a.onclick=e=>{e.preventDefault();try{localStorage.setItem('jp-lang',a.dataset.lang)}catch(err){}location.reload()});
 
 /* ---------- loader ---------- */
 const loader = document.getElementById('loader');
@@ -137,7 +158,7 @@ const phone=$('.phone');
 if(phone)document.addEventListener('mousemove',e=>{const x=e.clientX/innerWidth-.5,y=e.clientY/innerHeight-.5;phone.style.transform=`rotate(${12+x*8}deg) translate(${x*20}px,${y*20}px)`});
 
 /* ---------- forms (demo) ---------- */
-$$('form[data-demo]').forEach(f=>f.onsubmit=e=>{e.preventDefault();const b=f.querySelector('button');b.innerHTML='Thanks! We got it';b.style.background='#5E8C2E'});
+$$('form[data-demo]').forEach(f=>f.onsubmit=e=>{e.preventDefault();const b=f.querySelector('button');b.innerHTML=t('Thanks! We got it');b.style.background='#5E8C2E'});
 
 /* ---------- reservation / contact forms: open the visitor's email app ---------- */
 $$('form[data-mailto]').forEach(f=>f.onsubmit=e=>{e.preventDefault();const d=new FormData(f);
@@ -155,16 +176,15 @@ const IMG_MAP={
   'LOC-01':'loc-lahore-gulberg.webp','LOC-02':'loc-lahore-dha.webp','LOC-03':'loc-karachi-clifton.webp','LOC-04':'loc-karachi-dha.webp',
   'LOC-05':'loc-islamabad-f7.webp','LOC-06':'loc-islamabad-centaurus.webp','LOC-07':'loc-dubai-jbr.webp','LOC-08':'loc-doha-westbay.webp','LOC-09':'loc-london-soho.webp'
 };
-const slug=t=>t.toLowerCase().replace(/\bto go\b/,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 function tryImg(file,ok,fallback){const im=new Image();im.onload=()=>ok(IMG_DIR+file);if(fallback)im.onerror=()=>tryImg(fallback,ok);im.src=IMG_DIR+file}
 /* photos */
 $$('.ph[data-label]').forEach(el=>{const code=el.dataset.label.split(' ')[0],f=IMG_MAP[code];if(f)tryImg(f,u=>{el.style.backgroundImage=`url(${u})`;el.classList.add('has-img')})});
 /* dish plates (transparent PNG) */
 $$('[data-plate]').forEach(el=>{const n=el.querySelector('.tag')||el.closest('.mcard')?.querySelector('h3');if(!n)return;
-  tryImg(`dish-${slug(n.textContent)}.webp`,u=>{el.querySelector('svg').outerHTML=`<img src="${u}" alt="${n.textContent}">`},el.dataset.img)});
+  tryImg(`dish-${el.dataset.slug||slug(n.textContent)}.webp`,u=>{el.querySelector('svg').outerHTML=`<img src="${u}" alt="${n.textContent}">`},el.dataset.img)});
 /* Twirl To Go packs */
 const PACK_ORDER=['the-twirl','cheesy-does-it','garden-party'];
-$$('.roll').forEach((el,i)=>{const h=el.closest('.mcard')?.querySelector('h3');const s=el.dataset.pack||(h?slug(h.textContent):PACK_ORDER[[...el.parentElement.children].indexOf(el)]);
+$$('.roll').forEach((el,i)=>{const h=el.closest('.mcard')?.querySelector('h3');const s=el.dataset.pack||el.dataset.slug||(h?slug(h.textContent):PACK_ORDER[[...el.parentElement.children].indexOf(el)]);
   if(s)tryImg(`pack-${s}.webp`,u=>{el.classList.add('has-img');el.insertAdjacentHTML('beforeend',`<img src="${u}" alt="">`)})});
 /* logo, favicon, app screen, QR */
 tryImg('logo.webp',u=>$$('header.site .logo').forEach(l=>l.innerHTML=`<img src="${u}" alt="TWIRL°">`));
