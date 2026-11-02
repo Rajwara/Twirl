@@ -239,3 +239,30 @@ These need a video tool (Runway, Kling, Pika, Luma). Export as **MP4** (and GIF 
 ### Message to give Claude after uploading
 
 > "I've uploaded the images to `assets/images/` in my repo [link]. Check every file name against IMAGE-PROMPTS.md, tell me which are missing or misnamed, and fix anything that doesn't display."
+
+---
+
+## Jade Palast update: dish photos
+
+The menu now shows Jade Palast dishes. Until you upload a photo for a dish, the site shows the old pasta photo in its place.
+Upload a **square `.webp` with a transparent background** using these exact names to replace them:
+
+| Dish | File name |
+|---|---|
+| N1 Noodle Soup | `dish-n1-noodle-soup.webp` |
+| N2 Hong Shao Noodle Soup | `dish-n2-hong-shao-noodle-soup.webp` |
+| N3 Dan Dan Noodles | `dish-n3-dan-dan-noodles.webp` |
+| N4 Noodles in Chili Oil | `dish-n4-noodles-in-chili-oil.webp` |
+| N5 Noodles with Egg & Tomato | `dish-n5-noodles-with-egg-tomato.webp` |
+| V1 Seasoned Beef Shank | `dish-v1-seasoned-beef-shank.webp` |
+| V2 Chicken Leg in Chili Oil | `dish-v2-chicken-leg-in-chili-oil.webp` |
+| V4 Edamame | `dish-v4-edamame.webp` |
+| V5 Seaweed in Chili Oil | `dish-v5-seaweed-in-chili-oil.webp` |
+| V6 Pickled Cucumbers | `dish-v6-pickled-cucumbers.webp` |
+| V7 Pickled Radish | `dish-v7-pickled-radish.webp` |
+| V8 Fried Dumplings (home page) | `dish-v8-fried-dumplings.webp` |
+| R1 Happy Curry | `dish-r1-happy-curry.webp` |
+| R2 Shanghai Wok Vegetables | `dish-r2-shanghai-wok-vegetables.webp` |
+| R3 Sweet & Sour | `dish-r3-sweet-sour.webp` |
+
+All other photo names (hero, locations, about, jobs, etc.) stay the same — just upload a new file with the same name to replace the old one.

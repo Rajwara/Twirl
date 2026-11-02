@@ -1,4 +1,4 @@
-# TWIRL° site
+# Jade Palast site
 
 Static HTML/CSS/JS site — no build step.
 

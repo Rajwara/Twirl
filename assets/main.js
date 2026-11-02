@@ -1,31 +1,33 @@
 /* =========================================================
-   TWIRL° — shared script: layout injection + all animations
+   JADE PALAST — shared script: layout injection + all animations
    ========================================================= */
 (function(){
 const page = document.body.dataset.page || 'home';
+/* online ordering link (FoodAmigos) — paste the real URL here and every "Order" button uses it */
+const ORDER_URL = '#';
 const ARROW = '<svg width="38" height="14" viewBox="0 0 38 14" fill="none" stroke="#fff" stroke-width="1.6"><path d="M0 7h36M30 1l6 6-6 6"/></svg>';
 window.ARROW = ARROW;
 
 /* ---------- shared layout ---------- */
-const nav = [['menu.html','Our Menu','menu'],['locations.html','Locations','locations'],['index.html','LOGO','home'],['twirl-to-go.html','Twirl To Go','togo'],['jobs.html','Jobs','jobs']];
+const nav = [['menu.html','Our Menu','menu'],['locations.html','Locations','locations'],['index.html','LOGO','home'],['twirl-to-go.html','Jade To Go','togo'],['contact.html','Reservations','contact']];
 const headerHTML = `
-<div id="loader"><div class="lg">${'TWIRL°'.split('').map(l=>`<span>${l}</span>`).join('')}</div></div>
+<div id="loader"><div class="lg">${'JADE PALAST'.split('').map(l=>`<span>${l===' '?'&nbsp;':l}</span>`).join('')}</div></div>
 <header class="site" id="hdr">
   <button class="burger" id="burger" aria-label="Open menu"><i></i><i></i><i></i></button>
-  <nav>${nav.map(([h,t,k])=>t==='LOGO'?`<a href="${h}" class="logo">TWIRL<sup>°</sup></a>`:`<a href="${h}" class="${k===page?'active':''}">${t}</a>`).join('')}</nav>
+  <nav>${nav.map(([h,t,k])=>t==='LOGO'?`<a href="${h}" class="logo">JADE PALAST</a>`:`<a href="${h}" class="${k===page?'active':''}">${t}</a>`).join('')}</nav>
   <button class="lang-btn" id="langBtn">EN</button>
-  <div class="lang-menu" id="langMenu"><a href="#">EN</a><a href="#">UR</a><a href="#">AR</a></div>
+  <div class="lang-menu" id="langMenu"><a href="#">EN</a><a href="#">DE</a></div>
 </header>
-<div class="mobile-nav" id="mnav">${nav.map(([h,t])=>`<a href="${h}">${t==='LOGO'?'Home':t}</a>`).join('')}<a href="about.html">About</a><a href="contact.html">Contact</a></div>
-<nav class="cta-bar" id="ctaBar" aria-label="Quick actions"><a href="menu.html">Our Menu</a><a href="locations.html">Book a Table</a><a href="#order">Order Food</a></nav>`;
+<div class="mobile-nav" id="mnav">${nav.map(([h,t])=>`<a href="${h}">${t==='LOGO'?'Home':t}</a>`).join('')}<a href="about.html">About</a><a href="jobs.html">Jobs</a><a href="faq.html">FAQ</a></div>
+<nav class="cta-bar" id="ctaBar" aria-label="Quick actions"><a href="menu.html">Our Menu</a><a href="contact.html#reserve">Book a Table</a><a href="#order" data-order>Order Food</a></nav>`;
 
 const footerHTML = `
 <footer class="site"><div class="wrap">
   <div class="foot-grid">
-    <div><div class="flogo">TWIRL<sup style="font-size:.35em">°</sup></div><div class="say">Say<small>more sauce</small></div></div>
-    <div><h4>Eat</h4><ul><li><a href="menu.html">Menu</a></li><li><a href="locations.html">Locations</a></li><li><a href="twirl-to-go.html">Twirl To Go</a></li><li><a href="#">Twirl Truck</a></li><li><a href="#">Catering</a></li></ul></div>
-    <div><h4>Community</h4><ul><li><a href="#">The Saucy Club</a></li><li><a href="#">Twirl Kids</a></li><li><a href="#">Twirl Journal</a></li><li><a href="#">Events</a></li><li><a href="#">Merch</a></li></ul></div>
-    <div><h4>Twirl Info</h4><ul><li><a href="about.html">About us</a></li><li><a href="jobs.html">Jobs</a></li><li><a href="faq.html">FAQ</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div><div class="flogo">JADE PALAST</div><p style="margin-top:24px;max-width:260px">Authentic Chinese street food in Berlin. Hand-pulled noodles, Sichuan flavours and a vegan selection — for every appetite and every level of spiciness.</p><div class="say">Slurp<small>more noodles</small></div></div>
+    <div><h4>Eat</h4><ul><li><a href="menu.html">Menu</a></li><li><a href="locations.html">Locations</a></li><li><a href="twirl-to-go.html">Jade To Go</a></li><li><a href="contact.html#reserve">Reservations</a></li><li><a href="#" data-order>Order online</a></li></ul></div>
+    <div><h4>Contact</h4><ul><li><b>Kantstraße</b><br>Kantstraße 117A, 10627 Berlin<br><a href="tel:+493061201996">+49 30 61201996</a></li><li style="margin-top:12px"><b>Wühlischstraße</b><br>Wühlischstraße 30, 10245 Berlin<br><a href="tel:+493088921258">+49 30 88921258</a></li><li style="margin-top:12px"><a href="mailto:info@jadepalast.de">info@jadepalast.de</a></li></ul></div>
+    <div><h4>Jade Palast</h4><ul><li><a href="about.html">About us</a></li><li><a href="jobs.html">Jobs</a></li><li><a href="faq.html">FAQ</a></li><li><a href="contact.html">Contact</a></li></ul></div>
     <div><h4>Follow us</h4>
       <div class="socials">
         <a href="#" aria-label="Instagram"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff"/></svg></a>
@@ -33,11 +35,11 @@ const footerHTML = `
         <a href="#" aria-label="Facebook"><svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M14 8h3V4h-3c-2.8 0-4 1.8-4 4.3V10H7v4h3v7h4v-7h3l1-4h-4V8.6c0-.4.3-.6.6-.6z"/></svg></a>
         <a href="#" aria-label="TikTok"><svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M16 3c.4 2.4 2 4 4.5 4.3v3.2c-1.7 0-3.2-.5-4.5-1.4v6.6A5.7 5.7 0 1 1 10.3 10v3.3a2.5 2.5 0 1 0 2.4 2.5V3z"/></svg></a>
       </div>
-      <h4 style="margin-top:50px">Language</h4><div class="langs"><a href="#">UR</a><a href="#" class="on">EN</a><a href="#">AR</a></div>
+      <h4 style="margin-top:50px">Language</h4><div class="langs"><a href="#" class="on">EN</a><a href="#">DE</a></div>
     </div>
   </div>
-  <div class="legal"><span>TWIRL° Pasta Co. · hello@twirl.example · © 2026</span>
-    <nav><a href="#">Privacy policy</a><a href="#">Terms &amp; Conditions</a><a href="#">Cookie policy</a><a href="#">Disclaimer</a></nav></div>
+  <div class="legal"><span>© 2026 Jade Palast · info@jadepalast.de · All rights reserved.</span>
+    <nav><a href="imprint.html">Imprint</a><a href="privacy.html">Privacy policy</a><a href="cookies.html">Cookie policy</a></nav></div>
 </div></footer>`;
 
 document.body.insertAdjacentHTML('afterbegin', headerHTML);
@@ -60,6 +62,7 @@ document.addEventListener('click',()=>lm.classList.remove('open'));
 
 /* ---------- helpers ---------- */
 const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelectorAll(s)];
+if(ORDER_URL!=='#')$$('[data-order]').forEach(a=>{a.href=ORDER_URL;a.target='_blank';a.rel='noopener'});
 const rnd=n=>(Math.random()*n*2-n).toFixed(1);
 const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
 
@@ -77,7 +80,7 @@ $$('[data-plate]').forEach(el=>el.insertAdjacentHTML('afterbegin',plateSVG(+el.d
 /* fill marquee rows: data-marquee="word1|word2" data-fill="n" */
 $$('[data-marquee]').forEach((r,i)=>{
   const words=r.dataset.marquee.split('|'),fillEvery=+r.dataset.fill||0;let h='';
-  for(let k=0;k<10;k++){words.forEach(w=>h+=`<span>${w}</span>`);if(fillEvery&&k%fillEvery===i%fillEvery)h+=`<span class="fill">${r.dataset.fillword||'TWIRL°'}</span>`}
+  for(let k=0;k<10;k++){words.forEach(w=>h+=`<span>${w}</span>`);if(fillEvery&&k%fillEvery===i%fillEvery)h+=`<span class="fill">${r.dataset.fillword||'JADE PALAST'}</span>`}
   r.innerHTML=h+h;
 });
 
@@ -136,6 +139,11 @@ if(phone)document.addEventListener('mousemove',e=>{const x=e.clientX/innerWidth-
 /* ---------- forms (demo) ---------- */
 $$('form[data-demo]').forEach(f=>f.onsubmit=e=>{e.preventDefault();const b=f.querySelector('button');b.innerHTML='Thanks! We got it';b.style.background='#5E8C2E'});
 
+/* ---------- reservation / contact forms: open the visitor's email app ---------- */
+$$('form[data-mailto]').forEach(f=>f.onsubmit=e=>{e.preventDefault();const d=new FormData(f);
+  const body=[...d.entries()].map(([k,v])=>`${k}: ${v}`).join('\n');
+  location.href=`mailto:${f.dataset.mailto}?subject=${encodeURIComponent((d.get('Subject')||'Request')+' – '+(d.get('Name')||''))}&body=${encodeURIComponent(body)}`});
+
 /* ---------- real images: drop files into assets/images/ with these exact names ---------- */
 const IMG_DIR='assets/images/';
 const IMG_MAP={
@@ -148,15 +156,15 @@ const IMG_MAP={
   'LOC-05':'loc-islamabad-f7.webp','LOC-06':'loc-islamabad-centaurus.webp','LOC-07':'loc-dubai-jbr.webp','LOC-08':'loc-doha-westbay.webp','LOC-09':'loc-london-soho.webp'
 };
 const slug=t=>t.toLowerCase().replace(/\bto go\b/,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-function tryImg(file,ok){const im=new Image();im.onload=()=>ok(IMG_DIR+file);im.src=IMG_DIR+file}
+function tryImg(file,ok,fallback){const im=new Image();im.onload=()=>ok(IMG_DIR+file);if(fallback)im.onerror=()=>tryImg(fallback,ok);im.src=IMG_DIR+file}
 /* photos */
 $$('.ph[data-label]').forEach(el=>{const code=el.dataset.label.split(' ')[0],f=IMG_MAP[code];if(f)tryImg(f,u=>{el.style.backgroundImage=`url(${u})`;el.classList.add('has-img')})});
 /* dish plates (transparent PNG) */
 $$('[data-plate]').forEach(el=>{const n=el.querySelector('.tag')||el.closest('.mcard')?.querySelector('h3');if(!n)return;
-  tryImg(`dish-${slug(n.textContent)}.webp`,u=>{el.querySelector('svg').outerHTML=`<img src="${u}" alt="${n.textContent}">`})});
+  tryImg(`dish-${slug(n.textContent)}.webp`,u=>{el.querySelector('svg').outerHTML=`<img src="${u}" alt="${n.textContent}">`},el.dataset.img)});
 /* Twirl To Go packs */
 const PACK_ORDER=['the-twirl','cheesy-does-it','garden-party'];
-$$('.roll').forEach((el,i)=>{const h=el.closest('.mcard')?.querySelector('h3');const s=h?slug(h.textContent):PACK_ORDER[[...el.parentElement.children].indexOf(el)];
+$$('.roll').forEach((el,i)=>{const h=el.closest('.mcard')?.querySelector('h3');const s=el.dataset.pack||(h?slug(h.textContent):PACK_ORDER[[...el.parentElement.children].indexOf(el)]);
   if(s)tryImg(`pack-${s}.webp`,u=>{el.classList.add('has-img');el.insertAdjacentHTML('beforeend',`<img src="${u}" alt="">`)})});
 /* logo, favicon, app screen, QR */
 tryImg('logo.webp',u=>$$('header.site .logo').forEach(l=>l.innerHTML=`<img src="${u}" alt="TWIRL°">`));
