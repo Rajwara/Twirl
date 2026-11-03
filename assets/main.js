@@ -153,6 +153,26 @@ $$('.tabs button').forEach(b=>b.onclick=()=>{
 /* ---------- location search ---------- */
 const ls=$('#locSearch');if(ls)ls.oninput=()=>{const v=ls.value.toLowerCase();$$('.loc-card').forEach(c=>c.style.display=c.textContent.toLowerCase().includes(v)?'':'none')};
 
+/* ---------- floating plates: show the dish name in the big centre text ---------- */
+const stack=$('.plates .stack');
+if(stack){
+  const [outl,sol]=$$('span',stack),def=[outl.textContent,sol.textContent];let cur=null,back;
+  stack.setAttribute('aria-live','polite');
+  const show=(a,b,dish)=>{if(outl.textContent===a&&sol.textContent===b)return;
+    stack.classList.toggle('dish',dish);outl.textContent=a;sol.textContent=b;
+    stack.classList.remove('swap');void stack.offsetWidth;stack.classList.add('swap')};
+  const pick=pl=>{clearTimeout(back);cur=pl;const name=$('.tag',pl).textContent.trim(),m=name.match(/^([A-Z]\d+)\s+(.+)$/);
+    show(m?m[1]:'',m?m[2]:name,true)};
+  const reset=()=>{cur=null;back=setTimeout(()=>show(def[0],def[1],false),250)};
+  $$('.plates .plate').forEach(pl=>{pl.tabIndex=0;pl.setAttribute('role','button');pl.setAttribute('aria-label',$('.tag',pl).textContent.trim());
+    pl.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')pick(pl)});
+    pl.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse')reset()});
+    pl.addEventListener('click',()=>pick(pl));
+    pl.addEventListener('focus',()=>pick(pl));pl.addEventListener('blur',reset)});
+  /* tap anywhere else on a touch screen to go back */
+  document.addEventListener('click',e=>{if(cur&&!e.target.closest('.plates .plate'))reset()});
+}
+
 /* ---------- phone tilt with mouse ---------- */
 const phone=$('.phone');
 if(phone)document.addEventListener('mousemove',e=>{const x=e.clientX/innerWidth-.5,y=e.clientY/innerHeight-.5;phone.style.transform=`rotate(${12+x*8}deg) translate(${x*20}px,${y*20}px)`});
